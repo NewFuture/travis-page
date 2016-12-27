@@ -27,8 +27,8 @@ after_success:
   - if [ `git branch -r --list ${GH_BRANCH}`]; then
         git reset origin/${GH_BRANCH};
     else
-        git checkout -b ${GH_BRANCH}
-    fi
+        git checkout -b ${GH_BRANCH};
+    fi;
   - git add . && git commit -m "[skip ci] auto build" 
   - git push -f origin HEAD:${GH_BRANCH}
 
