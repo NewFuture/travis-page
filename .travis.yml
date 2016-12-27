@@ -22,13 +22,15 @@ script:
 
 
 after_success:
-  - cd "$BUILD_PATH" 
-  - git init
-  - git remote add origin ${GH_REF}
-  - git fetch origin --depth=1
-  - git reset origin/${GH_BRANCH}
-  - git add .
-  - git commit -m "[skip ci] auto build" && git push -f origin HEAD:${GH_BRANCH}
+  - cd "$BUILD_PATH" && git init
+  - git remote add origin ${GH_REF} && git fetch origin --depth=1
+  - if [ `git branch -r --list ${GH_BRANCH}`]; then
+        git reset origin/${GH_BRANCH};
+    else
+        git checkout -b ${GH_BRANCH}
+    fi
+  - git add . && git commit -m "[skip ci] auto build" 
+  - git push -f origin HEAD:${GH_BRANCH}
 
 
 git: #clone 目录深度 1 提高速度
