@@ -3,7 +3,10 @@ Travis-Page
 
 使用[Travis-CI](https://travis-ci.org)自动编译(生成或更新)gh-pgaes[![Build Status](https://travis-ci.org/NewFuture/travis-page.svg?branch=master)](https://travis-ci.org/NewFuture/travis-page)
 
-使用授权范围更小的`"deploy key"`(基于项目的权限) 而非 `"token"`(给予账号的权限) 授权
+支持发布方式：
+
+* [x] 使用授权范围更小的`"deploy key"`(基于项目的权限) 【推荐】
+* [x] [`"token"`授权](https://github.com/settings/tokens)(基于账号的权限): Travis环境变量里添加GH_TOKEN即可 
 
 ## 复制 `.travis.yml`
 
