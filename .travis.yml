@@ -25,7 +25,7 @@ script:
 #运行成功后,把生成目录(BUILD_PATH)下的文件发布到指定分支(GH_BRANCH)，
 #默认增量修改(只增加不删除),要删除[git add .]改成[git add -A]
 after_success:
-  - cd "${TRAVIS_BUILD_DIR}/${BUILD_PATH}" 
+  - cd "${BUILD_PATH}" || cd "${TRAVIS_BUILD_DIR}/${BUILD_PATH}" 
   - test ${TRAVIS_PULL_REQUEST} == true || git init # not update pull request 
   - git remote add origin ${GIT_REF} && git fetch origin --depth=1
   - if [ "`git branch -r --list origin/${GH_BRANCH}`" ] ; then
@@ -33,8 +33,8 @@ after_success:
     else
       git checkout -b ${GH_BRANCH};
     fi;
-  - git add . && git commit -m "[skip ci] auto build $(date -I)"
-  - git push origin HEAD:${GH_BRANCH} -q
+  - git add . 
+  - git commit -m "[skip ci]build $(date -I)" &&git push origin HEAD:${GH_BRANCH} -q
 
 
 before_install:
