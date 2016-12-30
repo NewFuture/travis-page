@@ -13,21 +13,14 @@ env:
     - GIT_REF: "$(git ls-remote --get-url)" #git url
 
 
-before_script:
-  - if [ $GH_TOKEN ]; then
-      GIT_REF=`sed \"s#://#&${GH_TOKEN}@#\"<<<$GIT_REF`;
-    else
-      GIT_REF=`sed -e 's#^https://#git@#' -e 's#/#:#'<<<$GIT_REF`;
-      base64 -d <<<$RSAKEY>~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa;
-    fi;
-  #- 继续添加其他需要准备的环境
-
-script: #下面替换成运行生成命令或者脚本
-  - mkdir ${BUILD_PATH}
+#下面替换成运行生成命令或者脚本
+script:
   - cp gen.sh LICENSE *.md ${BUILD_PATH}/
   - cp .travis.yml ${BUILD_PATH}/travis.yml
 
 
+#运行成功后,把生成目录(BUILD_PATH)下的文件发布到指定分支(GH_BRANCH)，
+#默认增量修改(只增加不删除),要删除[git add .]改成[git add -A]
 after_success:
   - cd "${BUILD_PATH}" 
   - test ${TRAVIS_PULL_REQUEST} == true || git init # not update pull request 
@@ -39,6 +32,22 @@ after_success:
     fi;
   - git add . && git commit -m "[skip ci] auto build $(date -I)"
   - git push origin HEAD:${GH_BRANCH} -q
+
+
+before_install:
+  # 检查验证方式token或者RSAKEY
+  - if [ $GH_TOKEN ]; then
+      GIT_REF=`sed \"s#://#&${GH_TOKEN}@#\"<<<$GIT_REF`;
+    else
+      GIT_REF=`sed -e 's#^https://#git@#' -e 's#/#:#'<<<$GIT_REF`;
+      base64 -d <<<$RSAKEY>~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa;
+    fi;
+  # 检查路径不存在时，不存在自动创建
+  - test -d "$BUILD_PATH" || mkdir -p "$BUILD_PATH" 
+
+
+addons:
+  ssh_known_hosts: github.com
 
 
 git: #clone 目录深度 1 提高速度
