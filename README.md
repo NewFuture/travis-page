@@ -7,6 +7,7 @@ Travis-Page
 
 * [x] 使用授权范围更小的`"deploy key"`(基于项目的权限) 【推荐】
 * [x] [`"token"`授权](https://github.com/settings/tokens)(基于账号的权限): Travis环境变量里添加GH_TOKEN即可 
+* [x] `secure`方式加密(加密内容`GH_TOKEN=xxxx`):[可以使用web离线版生成](http://rkh.github.io/travis-encrypt/public/)
 
 ## 复制 `.travis.yml`
 
