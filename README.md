@@ -20,7 +20,7 @@ PS: 可以先fork [travis-page](https://github.com/NewFuture/travis-page#fork-de
 ## 添加deploy key
 
 - 生成RSA key
-  * \*nix下可以使用`curl https://travis-page.newfuture.xyz/gen.sh -#L |sh`
+  * \*nix下可以使用`curl https://travis-page.newfuture.xyz/gen.sh -#L |bash` (后续步骤根据提示完成)
   * windwos可以使用在线RSA生成工具生成密钥对，然后使用在线base64编码工具将Private key进行base64编码
   * 或者运行下面的命令(\*nix)
 
