@@ -1,5 +1,9 @@
 #Reference from https://github.com/NewFuture/travis-page
-sudo: false
+
+# 一下基本设置
+# sudo: false
+# language: 语言如pythonruby,node_js
+# dist: trusty (Ubuntu 16.04)
 
 env:
   global: # 使用secure加密方式添加secure字段
@@ -35,9 +39,10 @@ after_success:
       git checkout -b ${GH_BRANCH};
     fi;
   - git add . 
-  - git commit -m "[skip ci]build $(date -I)" &&git push origin HEAD:${GH_BRANCH} -q
+  - git commit -m "build $(date -I)[skip ci]" &&git push origin HEAD:${GH_BRANCH} -q
 
 
+#所有脚本和安装之前
 before_install:
   # 检查验证方式token或者RSAKEY
   - if [ $GH_TOKEN ]; then
@@ -48,10 +53,6 @@ before_install:
     fi;
   # 检查路径不存在时，不存在自动创建
   - test -d "$BUILD_PATH" || mkdir -p "$BUILD_PATH" 
-
-
-addons:
-  ssh_known_hosts: github.com
 
 
 git: #clone 目录深度 1 提高速度
