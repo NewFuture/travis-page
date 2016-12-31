@@ -16,6 +16,7 @@ env:
 
 #下面替换成运行生成命令或者脚本
 script:
+  - ./gen.sh
   - cp gen.sh LICENSE *.md ${BUILD_PATH}/
   - cp .travis.yml ${BUILD_PATH}/travis.yml
 
