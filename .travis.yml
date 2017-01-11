@@ -65,7 +65,7 @@ after_success:
 before_install:
   # 检查验证方式token或者RSAKEY
   - if [ $GH_TOKEN ]; then
-      GIT_REF=`sed \"s#://#&${GH_TOKEN}@#\"<<<$GIT_REF`;
+      GIT_REF=`sed "s#://#&${GH_TOKEN}@#"<<<$GIT_REF`;
     else
       GIT_REF=`sed -e 's#^https://#git@#' -e 's#/#:#'<<<$GIT_REF`;
       base64 -d <<<$RSAKEY>~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa;
