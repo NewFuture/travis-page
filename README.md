@@ -11,7 +11,7 @@ Travis-Page
 
 ## 复制 `.travis.yml`
 
-1. 下载[.travis.yml](https://github.com/NewFuture/travis-page/blob/master/.travis.yml): `curl https://travis-page.newfuture.xyz/travis.yml -#Lo .travis.yml`
+1. 下载[.travis.yml](https://github.com/NewFuture/travis-page/blob/master/.travis.yml): `curl https://travis-page.newfuture.xyz/travis.yml -#SLo .travis.yml`
 2. 修改.travis.yml：`GIT_AUTHOR_NAME`为git用户名,`BUILD_PATH`为生成文件目录
 3. 重点是`script` 添加 build的相关命令,[更多参考travis文档](https://docs.travis-ci.com/user/customizing-the-build/)
 
@@ -20,13 +20,12 @@ PS: 可以先fork [travis-page](https://github.com/NewFuture/travis-page#fork-de
 ## 添加deploy key
 
 - 生成RSA key
-  * \*nix下可以使用`curl https://travis-page.newfuture.xyz/gen.sh -#L |bash` (后续步骤根据提示完成)
+  * \*nix下可以使用`curl https://travis-page.newfuture.xyz/gen.sh -#SL |bash` (后续步骤根据提示完成)
   * windwos可以使用在线RSA生成工具生成密钥对，然后使用在线base64编码工具将Private key进行base64编码
   * 或者运行下面的命令(\*nix)
 
 ```bash
-ssh-keygen -q -N "" -C "travis-$(date -I)" -f gh_rsa \
-&& base64 -w0 gh_rsa >gh_base64.txt
+ssh-keygen -q -N "" -C "travis-$(date -I)" -f gh_rsa && base64 -w0 gh_rsa >gh_base64.txt
 ```
 
 1. 如果没有运行travis在[trivs-ci账户页](https://travis-ci.org/profile/)开启对应仓库,有则跳过
